@@ -5,7 +5,11 @@ class Pages{
         
     }
 
-    public function about(){
-        echo"<h1> this is about page</h1>";
+    public function index(){
+        echo"This is index Page";
+    }
+
+    public function about($id){
+        echo"<h1 style='font-size:100px'> this is about page $id</h1>";
     }
 }

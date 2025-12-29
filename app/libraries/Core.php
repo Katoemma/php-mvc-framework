@@ -22,7 +22,7 @@ class Core {
             //if exists,make the value, the current controller
             $this->currentController = ucwords( $url[0]);
 
-            //unset 0 index
+            //unset 0 index since it is already used/processed, therefore we remove it
             unset($url[0]);
         }
 
@@ -34,14 +34,21 @@ class Core {
 
         //check for the second part for URL
         if(isset($url[1])){
+
+            print_r($url);
             
             if(method_exists($this->currentController, $url[1])){
-                echo $url[1];
                 $this->currentMethod = $url[1];
+                unset($url[1]);
             }
         }
 
-        echo $this->currentMethod;
+        // Get params
+        $this->params = $url ? array_values($url) : [];
+
+        // call a callback with array of parrams
+
+        call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
     }
 
     public function getUrl(){
